@@ -1,3 +1,3 @@
 # Pandas basic wiki
 
-Trata-se de uma Wiki que apresenta as funcionalidades básicas da biblioteca Pandas.
+Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.

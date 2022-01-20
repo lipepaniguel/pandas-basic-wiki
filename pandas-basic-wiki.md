@@ -1,14 +1,19 @@
 # Pandas Basic Wiki
 
-Trata-se de uma Wiki que apresenta as funcionalidades básicas da biblioteca *Pandas*.
+Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.  
 
 <br>
 
 **Sumário**
-1. [Importando a biblioteca](#importando-a-biblioteca)
-1. [Lendo arquivo .csv](#lendo-arquivo-csv)
-1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
-1. [Lendo uma coluna específica](#lendo-uma-coluna-específica)
+1. [Armazenando os dados](#armazenando-os-dados)
+    1. [Importando a biblioteca](#importando-a-biblioteca)
+    1. [Lendo arquivos .csv](#lendo-arquivo-csv)
+    1. [DataFrame](#dataframe)
+1. [Vizualizando os dados](#vizualizando-os-dados)
+    1. [Formato de exibição do dataframe](#Formato-de-exibição-do-dataframe)
+    1. [Exibindo as informações gerais](#exibindo-as-informações-gerais)
+    1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
+    1. [Lendo colunas específicas](#lendo-colunas-específicas)
 1. [Lendo uma linha específica](#Lendo-uma-linha-específica)
 1. [Lendo todas as linhas de valores iguais](#lendo-todas-as-linhas-de-valores-iguais)
 1. [Organizando os dados à partir de colunas](#organizando-os-dados-à-partir-de-colunas)
@@ -23,7 +28,11 @@ Trata-se de uma Wiki que apresenta as funcionalidades básicas da biblioteca *Pa
 
 <br>
 
+# Armazenando os dados
+
 ## Importando a biblioteca
+
+Para se utilizar qualquer biblioteca em python é necessário primeiro importa-la. Nessa Wiki a utilizaremos por meio de sua forma abreviada `pd`. 
 
 ```py
 import pandas as pd
@@ -32,14 +41,42 @@ import pandas as pd
 <br>
 
 ## Lendo arquivo .csv
-
+Para trabalhar com um arquivo tipo CSV (valores separados por vírgulas) basta utilizar o método `read_csv()` e inserir entre parênteses o caminho do arquivo. No exemplo abaixo armazenamos o conteúdo na variável `data`.
 ```py
 data = pd.read_csv('data.csv')
 ```
 
 <br>
 
+## DataFrame
+O conteúdo é armazenado em uma variável do tipo objeto chamada *DataFrame*.
+Se utilizarmos o comando `print(type(data))` receberemos o seguinte output:
+```
+<class 'pandas.core.frame.DataFrame'>
+```
+
+<br>
+
+# Vizualizando os dados
+
+## Formato de exibição do dataframe
+
+O comando `print(data)` exibirá as cinco primeiras e cinco últimas linhas do nosso conjunto de dados. As colunas podem ser apresentadas em sua totalidade ou não, variando conforme o espaço disponível para apresenta-las. Os dados das linhas e colunas ocultadas são representados por reticências "`...`".  
+No topo de cada coluna é possível ler seus respectivos títulos, no canto esquerdo é exibido uma coluna "extra" correspondente ao index de cada linha - em que 0 equivale a primeira linha e assim por diante - e ao fim, entre colchetes, é exibido o número total de linhas e colunas do dataframe.
+
+<br>
+
+## Exibindo as informações gerais
+
+Para se obter as informações gerais do dataframe é possível utilizar o método `info()`.
+```py
+info_gerais = data.info()
+```
+
+<br>
+
 ## Lendo o título de todas as colunas
+Para obter todos os títulos presentes no dataframe basta utilizar o atributo `.columns`.
 
 ```py
 titulo_colunas = data.columns
@@ -47,10 +84,15 @@ titulo_colunas = data.columns
 
 <br>
 
-## Lendo uma coluna específica
-
+## Lendo colunas específicas
+O modo para selecionar colunas específicas dentro do dataframe varia conforme o número de colunas que se deseja obter. 
+Para uma única coluna, é possível utilizar o nome do dataframe seguido de um ponto e o nome da coluna, ou utilizar o nome da coluna entre aspas simples ou duplas e colchetes.  
+Para selecionar mais de uma coluna, deve-se utilizar o nome de cada coluna entre aspas, separadas por vírgula e todas elas inseridas entre **dois** colchetes.
 ```py
-coluna_especifica = data['Coluna 2']
+coluna_especifica = data.Coluna1
+coluna_especifica = data['Coluna1']
+
+mais_de_uma_coluna = data[['Coluna1', 'Coluna2']]
 ```
 
 <br>
