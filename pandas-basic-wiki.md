@@ -1,12 +1,12 @@
 # Pandas Basic Wiki
 
-Trata-se de uma Wiki que apresentará as funcionalidades básicas da biblioteca *Pandas*.
+Trata-se de uma Wiki que apresenta as funcionalidades básicas da biblioteca *Pandas*.
 
 <br>
 
 **Sumário**
 1. [Importando a biblioteca](#importando-a-biblioteca)
-1. [Lendo arquivo .csv](#lendo-arquivo-.csv)
+1. [Lendo arquivo .csv](#lendo-arquivo-csv)
 1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
 1. [Lendo uma coluna específica](#lendo-uma-coluna-específica)
 1. [Lendo uma linha específica](#Lendo-uma-linha-específica)
@@ -14,11 +14,12 @@ Trata-se de uma Wiki que apresentará as funcionalidades básicas da biblioteca 
 1. [Organizando os dados à partir de colunas](#organizando-os-dados-à-partir-de-colunas)
 1. [Retirando colunas](#retirando-colunas)
 1. [Reorganizando colunas](#reorganizando-colunas)
-1. [Criando arquivos .csv](#criando-arquivos-.csv)
-1. [Criando arquivos .xlsx](#criando-arquivos-.xlsx)
-1. [](#)
-1. [](#)
-1. [](#)
+1. [Criando arquivos .csv](#criando-arquivos-csv)
+1. [Criando arquivos .xlsx](#criando-arquivos-xlsx)
+1. [Lendo colunas a partir de um parâmetro](#lendo-colunas-a-partir-de-um-parâmetro)
+1. [Resetar index e retirar coluna index antigo](#resetar-index-e-retirar-coluna-index-antigo)
+1. [Lendo todas as linhas com mesmo trechos de str de uma coluna](#lendo-todas-as-linhas-com-mesmo-trechos-de-str-de-uma-coluna)
+1. [Alterando nomes de uma coluna](#alterando-nomes-de-uma-coluna)
 
 <br>
 
@@ -118,15 +119,15 @@ data_alterada.to_excel('nova-data.xlsx', index=False)
 
 ```py
 data.loc[
-    (data.School == 'Transmutation') &
-    (data['Damage/Effect'] == 'Control') & (data.Level >= 3)
-    ])
+    (data.Name == 'Joao') &
+    (data['Idade'] >= '30')
+    ]
 ```
 
 <br>
 
 
-## Resetar index e retirar coluna da index antiga
+## Resetar index e retirar coluna index antigo
 
 ```py
 new_data = data.loc[(data['Damage/Effect'] == 'Creation')]
@@ -135,10 +136,10 @@ new_data.reset_index(drop=True, inplace=True)
 
 <br>
 
-## Lendo todas as linhas com mesmo trechos de str em uma coluna
+## Lendo todas as linhas com mesmo trechos de str de uma coluna
 
 ```py
-print(data.loc[data.Name.str.contains('Fire|Flame')])
+print(data.loc[data.Name.str.contains('Joao|Judite')])
 ```
 
 <br>
@@ -146,8 +147,7 @@ print(data.loc[data.Name.str.contains('Fire|Flame')])
 ## Alterando nomes de uma coluna
 
 ```py
-data.loc[data.Source == 'Tasha\'s Cauldron of Everything', 'Source'] = \
-    'Tasha\'s Cauldron'
+data.loc[data.Source == 'Joao maria', 'Name'] = 'Joao Maria'
 ```
 
 <br>
