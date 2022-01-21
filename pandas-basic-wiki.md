@@ -13,19 +13,20 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Formato de exibição do dataframe](#Formato-de-exibição-do-dataframe)
     1. [Exibindo as informações gerais](#exibindo-as-informações-gerais)
     1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
-1. [Triagem por index e título de coluna]
+1. [Triagem por index e título de coluna](#triagem-por-index-e-título-de-coluna)
     1. [Lendo colunas específicas](#lendo-colunas-específicas)
     1. [Lendo linhas específicas](#lendo-linhas-específicas)
 1. [Triagem por conteúdo](#triagem-por-conteúdo)
     1. [Lendo linhas pelos valores de colunas](#lendo-linhas-pelos-valores-de-colunas)
     1. [Lendo linhas por trechos de str do conteúdo](#lendo-linhas-por-trechos-de-str-do-conteúdo)
-1. [Organizando os dados à partir de colunas](#organizando-os-dados-à-partir-de-colunas)
-1. [Retirando colunas](#retirando-colunas)
-1. [Reorganizando colunas](#reorganizando-colunas)
+1. [Editando o dataframe](#editando-o-dataframe)
+    1. [Organizando os dados à partir de colunas](#organizando-os-dados-à-partir-de-colunas)
+    1. [Reorganizando colunas](#reorganizando-colunas)
+    1. [Retirando colunas](#retirando-colunas)
+    1. [Alterando nomes de uma coluna](#alterando-nomes-de-uma-coluna)
+    1. [Resetar index e retirar coluna index antigo](#resetar-index-e-retirar-coluna-index-antigo)
 1. [Criando arquivos .csv](#criando-arquivos-csv)
 1. [Criando arquivos .xlsx](#criando-arquivos-xlsx)
-1. [Resetar index e retirar coluna index antigo](#resetar-index-e-retirar-coluna-index-antigo)
-1. [Alterando nomes de uma coluna](#alterando-nomes-de-uma-coluna)
 
 <br>
 
@@ -84,6 +85,8 @@ titulo_colunas = data.columns
 ```
 
 <br>
+
+# Triagem por index e título de coluna
 
 ## Lendo colunas específicas
 O modo para selecionar colunas específicas dentro do dataframe varia conforme o número de colunas que se deseja obter. 
@@ -155,6 +158,8 @@ data.loc[0, 'Coluna1']
 Ambos os comandos apontam para a mesma célula, isto é, para o conteúdo da primeira linha na primeira coluna.
 
 <br>
+
+# Editando o dataframe
 
 ## Organizando os dados à partir de colunas
 
