@@ -14,7 +14,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Exibindo as informações gerais](#exibindo-as-informações-gerais)
     1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
     1. [Lendo colunas específicas](#lendo-colunas-específicas)
-1. [Lendo uma linha específica](#Lendo-uma-linha-específica)
+    1. [Lendo linhas específicas](#Lendo-linhas-específicas)
 1. [Lendo todas as linhas de valores iguais](#lendo-todas-as-linhas-de-valores-iguais)
 1. [Organizando os dados à partir de colunas](#organizando-os-dados-à-partir-de-colunas)
 1. [Retirando colunas](#retirando-colunas)
@@ -97,11 +97,36 @@ mais_de_uma_coluna = data[['Coluna1', 'Coluna2']]
 
 <br>
 
-## Lendo uma linha específica
+## Lendo linhas específicas
+À partir do index gerado pelo dataframe podemos obter linhas específicas do conjunto de dados. Para isso podemos utilizar tanto o atributo `.loc` quanto o atributo `.iloc`. Basta inserir o index da linha entre colchetes.  
+Para selecionar mais de uma linha é possível utilizar vírgulas entre cada index que se deseja obter e utilizar dois colchetes ao invés de um. Ou ainda utilizar dois pontos como se fossem listas entre o primeiro e último index, deve-se ressaltar que assim como as listas, o atributo `.iloc` deixará de fora o último elemento, o mesmo não ocorrendo com `.loc`, que exibirá inclusive a última linha do index inserido.
 
 ```py
-linha_especifica = data.iloc[5]
+linha_especifica = data.loc[5]
+linha_especifica = data.iloc[2]
+
+mais_de_uma_linha = data.loc[2:6]
+mais_de_uma_linha = data.iloc[4:7]
+
+mais_de_uma_linha = data.loc[[2, 4, 6]]
+mais_de_uma_linha = data.iloc[[4, 7, 12]]
 ```
+
+<br>
+
+## Lendo células específicas
+À partir do index e utilizando ainda os atributos `.iloc` e `.loc` é possível obter os valores de células específicas dentro do dataframe. Para isso deve-se compreender a "estrutura" desses atributos.  
+Ambos podem ser retratados da seguinte maneira:
+```
+data.loc[<linha>, <coluna>]
+```
+Mas há uma diferença importante entre ambos, `.iloc` trata as colunas como index, ou seja, aceita apenas os valores de 0 até o último index correspondente às colunas, enquanto `.loc` aceita apenas os respectivos títulos das colunas. Observe no exemplo abaixo.
+```py
+data.iloc[0, 0]
+
+data.loc[0, 'Coluna1']
+```
+Ambos os comandos apontam para a mesma célula, isto é, para o conteúdo da primeira linha na primeira coluna.
 
 <br>
 
