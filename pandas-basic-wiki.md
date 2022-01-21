@@ -19,16 +19,18 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Lendo linhas específicas](#lendo-linhas-específicas)
     1. [Lendo células específicas](#lendo-células-específicas)
 1. [Triagem por conteúdo](#triagem-por-conteúdo)
-    1. [Lendo linhas pelos valores de colunas](#lendo-linhas-pelos-valores-de-colunas)
+    1. [Lendo linhas pelo conteúdo das colunas](#lendo-linhas-pelo-conteúdo-das-colunas)
     1. [Lendo linhas por trechos de str do conteúdo](#lendo-linhas-por-trechos-de-str-do-conteúdo)
 1. [Editando o dataframe](#editando-o-dataframe)
-    1. [Organizando os dados à partir de colunas](#organizando-os-dados-à-partir-de-colunas)
-    1. [Reorganizando colunas](#reorganizando-colunas)
-    1. [Retirando colunas](#retirando-colunas)
-    1. [Alterando nomes de uma coluna](#alterando-nomes-de-uma-coluna)
+    1. [Parâmetros de organização](#parâmetros-de-organização)
+    1. [Reorganizando linhas à partir de colunas](#reorganizando-linhas-à-partir-de-colunas)
+    1. [Retirando linhas e colunas](#retirando-linhas-e-colunas)
+    1. [Reorganizando linhas e colunas](#reorganizando-linhas-colunas)
+    1. [Alterando valores de uma coluna](#alterando-valores-de-uma-coluna)
     1. [Corrigindo a coluna index](#corrigindo-a-coluna-index)
-1. [Criando arquivos .csv](#criando-arquivos-csv)
-1. [Criando arquivos .xlsx](#criando-arquivos-xlsx)
+1. [Escrevendo arquivos](#escrevendo-arquivos)    
+    1. [Criando arquivos .csv](#criando-arquivos-csv)
+    1. [Criando arquivos .xlsx](#criando-arquivos-xlsx)
 
 <br>
 
@@ -240,7 +242,6 @@ Após editar o conjunto de dados pode-se querer atribuir um novo index ao datafr
 new_data = data.reset_index()
 ```
 Ou então, de forma mais prática e gerando um dataframe sem o index antigo podemos utilizar os parâmetros `inplace` e `drop`, como no exemplo abaixo. Ambos tem o valor de `False` por padrão, mudando para `True`, o `inplace` passa a gerar um novo index no próprio dataframe e `drop` irá retirar a tabela index antiga.
-
 ```py
 data.reset_index(drop=True, inplace=True)
 ```
