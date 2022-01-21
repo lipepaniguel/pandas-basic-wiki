@@ -26,7 +26,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Reorganizando colunas](#reorganizando-colunas)
     1. [Retirando colunas](#retirando-colunas)
     1. [Alterando nomes de uma coluna](#alterando-nomes-de-uma-coluna)
-    1. [Resetar index e retirar coluna index antigo](#resetar-index-e-retirar-coluna-index-antigo)
+    1. [Corrigindo a coluna index](#corrigindo-a-coluna-index)
 1. [Criando arquivos .csv](#criando-arquivos-csv)
 1. [Criando arquivos .xlsx](#criando-arquivos-xlsx)
 
@@ -194,9 +194,25 @@ data_reorganizada = data.sort_values(['Idade', 'Nome'], ignore_index=True)
 
 <br>
 
+## Retirando linhas e colunas
+Com o método `.drop()` é possível remover do dataframe qualquer linha ou coluna, basta inserir o parâmetro `index` dentro do parênteses atribuindo o número do index da linha que se deseja retirar ou inserindo o parâmetro `columns`, também atribuindo o nome da coluna entre aspas que se deseja retirar.
+```py
+data_sem_a_linha = data.drop(index=3)
+
+data_sem_a_coluna = data.drop(columns='Coluna Indesejada')
+```
+
+<br>
+
 ## Reorganizando linhas e colunas
-À partir do atributo `.values`, que retorna uma lista com valores ordenados, é possível optar quais linhas ou colunas serão obtidas e a suas respectivas ordens.  
-Vejamos primeiro como reorganizar as linhas
+À partir do atributo `.values`, que retorna uma lista com valores ordenados, é possível reorganizar o dataframe, optando por quais linhas ou colunas serão obtidas, podendo alterar dessa forma também as suas respectivas ordens.  
+O primeiro passo é armazenar o valor obtido pelo atributo `.values` em uma variável do tipo lista. Assim podemos tratar cada uma das linhas ou colunas como um index.  
+No caso das linhas, deve utilizar o atributo `.iloc` para podermos indicar as linhas que dejemos obter.
+```py
+linhas = list(data.index.values)
+nova_data = data.iloc[linhas[0:3] + [linhas[5]]]
+```
+Já para colunas o processo é mais simples, basta apenas indicar o index das colunas por meio da lista criada.
 ```py
 colunas = list(data.columns.values)
 nova_data = data[colunas[0:3] + [colunas[7]]
@@ -204,22 +220,34 @@ nova_data = data[colunas[0:3] + [colunas[7]]
 
 <br>
 
-## Retirando linhas e colunas
-
+## Alterando valores de uma coluna
+É possível alterar valores de uma coluna no dataframe à partir de um determinado filtro. Dependendo do tipo de filtro é possível alterar apenas um valor ou todos os valores correspondentes ao grupo filtrado.  
+Para se criar o filtro é utilizado o atributo `.loc` com o nome da coluna e o valor correspondente a ser filtrado. Em seguida utiliza-se o nome da coluna a ser alterada, por fim é atribuído o novo valor a ser substituído. Ou seja, será alterado cada um dos elementos presentes na coluna selecionada, de acordo com o filtro estipulado. A estrutura do código pode ser observada abaixo.
 ```py
-data_sem_uma_coluna = data.drop(columns=['Coluna Indesejada'])
+data.loc[data['coluna_filtrada'] == 'valor_filtrado', 'coluna_a_ser_alterada'] = 'novo_valor'
+```
+Se quisermos, por exemplo, alterar a idade de todo os Josés presentes em um dataframe para 31 anos.
+```py
+data.loc[data['Nome'] == 'José', 'Idade'] = '31'
 ```
 
 <br>
 
-## Alterando nomes de uma coluna
+## Corrigindo a coluna index
+Após editar o conjunto de dados pode-se querer atribuir um novo index ao dataframe, para isso é possível utilizar o método `.reset_index`.  Ele pode ser utilizado sem parâmetro nenhum, como no exemplo abaixo,
+à partir da criação de um novo dataframe que apresentará o novo index bem como uma tabela "extra" contendo o index antigo.
+```py
+new_data = data.reset_index()
+```
+Ou então, de forma mais prática e gerando um dataframe sem o index antigo podemos utilizar os parâmetros `inplace` e `drop`, como no exemplo abaixo. Ambos tem o valor de `False` por padrão, mudando para `True`, o `inplace` passa a gerar um novo index no próprio dataframe e `drop` irá retirar a tabela index antiga.
 
 ```py
-data.loc[data.Source == 'Joao maria', 'Name'] = 'Joao Maria'
+data.reset_index(drop=True, inplace=True)
 ```
 
 <br>
 
+# Escrevendo arquivos
 ## Criando arquivos .csv
 
 ```py
@@ -232,15 +260,6 @@ data_alterada.to_csv('nova-data.csv', index=False)
 
 ```py
 data_alterada.to_excel('nova-data.xlsx', index=False)
-```
-
-<br>
-
-## Resetar index e retirar coluna index antigo
-
-```py
-new_data = data.loc[(data['Damage/Effect'] == 'Creation')]
-new_data.reset_index(drop=True, inplace=True)
 ```
 
 <br>
