@@ -11,11 +11,13 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [DataFrame](#dataframe)
 1. [Vizualizando os dados](#vizualizando-os-dados)
     1. [Formato de exibição do dataframe](#Formato-de-exibição-do-dataframe)
+    1. [Exibindo as n primeiras linhas](#exibindo-as-n-primeiras-linhas)
     1. [Exibindo as informações gerais](#exibindo-as-informações-gerais)
     1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
 1. [Triagem por index e título de coluna](#triagem-por-index-e-título-de-coluna)
     1. [Lendo colunas específicas](#lendo-colunas-específicas)
     1. [Lendo linhas específicas](#lendo-linhas-específicas)
+    1. [Lendo células específicas](#lendo-células-específicas)
 1. [Triagem por conteúdo](#triagem-por-conteúdo)
     1. [Lendo linhas pelos valores de colunas](#lendo-linhas-pelos-valores-de-colunas)
     1. [Lendo linhas por trechos de str do conteúdo](#lendo-linhas-por-trechos-de-str-do-conteúdo)
@@ -42,7 +44,7 @@ import pandas as pd
 
 <br>
 
-## Lendo arquivo .csv
+## Lendo arquivos .csv
 Para trabalhar com um arquivo tipo CSV (valores separados por vírgulas) basta utilizar o método `read_csv()` e inserir entre parênteses o caminho do arquivo. No exemplo abaixo armazenamos o conteúdo na variável `data`.
 ```py
 data = pd.read_csv('data.csv')
@@ -68,8 +70,15 @@ No topo de cada coluna é possível ler seus respectivos títulos, no canto esqu
 
 <br>
 
-## Exibindo as informações gerais
+## Exibindo as n primeiras linhas
+Por meio do método `.head()` é possível obter, por padrão, as cinco primeiras linhas do dataframe. Além disso, é possível inserir um valor n entre os parêntes, sendo retornado as n primeiras linhas do dataframe. Mas dependendo da quantidade de linhas, será retornado apenas as cinco primeiras e cinco últimas, e o intervalo ocultado será representado por `...`.
+```py
+print(data.head(25))
+```
 
+<br>
+
+## Exibindo as informações gerais
 Para se obter as informações gerais do dataframe é possível utilizar o método `info()`.
 ```py
 info_gerais = data.info()
@@ -121,28 +130,6 @@ sequencia_de_linhas = data[4:15]
 
 <br>
 
-# Triagem por conteúdo
-
-## Lendo linhas pelo conteúdo das colunas 
-O atributo `.loc` nos permite ainda selecionar linhas à partir do conteúdo de uma determinada coluna, retornando todas as linhas que apresentarem esse mesmo valor. É possível utilizar todos os operadores de comparação.
-```py
-linhas_mesma_info = data.loc[data['Nome'] == 'Judite']
-```
-Além disso, é possível selecionar linhas à partir do conteúdo de mais de uma coluna, estabelencendo relação entre elas. Para isso é possível utilizar operadores lógicos como "and" ou "or", entretanto nessa biblioteca eles são representados por `&` significando o mesmo que `and` e `|` significando o mesmo que `or`.
-```py
-data.loc[(data['Nome'] == 'Joao') & (data['Idade'] >= '30')]
-```
-
-<br>
-
-## Lendo linhas por trechos de str do conteúdo
-
-```py
-print(data.loc[data.Name.str.contains('Joao|Judite')])
-```
-
-<br>
-
 ## Lendo células específicas
 À partir do index e utilizando ainda os atributos `.iloc` e `.loc` é possível obter os valores de células específicas dentro do dataframe. Para isso deve-se compreender a "estrutura" desses atributos.  
 Ambos podem ser retratados da seguinte maneira:
@@ -159,17 +146,65 @@ Ambos os comandos apontam para a mesma célula, isto é, para o conteúdo da pri
 
 <br>
 
-# Editando o dataframe
+# Triagem por conteúdo
 
-## Organizando os dados à partir de colunas
-
+## Lendo linhas pelo conteúdo das colunas 
+O atributo `.loc` nos permite ainda selecionar linhas à partir do conteúdo de uma determinada coluna, retornando todas as linhas que apresentarem esse mesmo valor. É possível utilizar todos os operadores de comparação.
 ```py
-data_organizada = data.sort_values(['Coluna 3', 'Name'])
+linhas_mesma_info = data.loc[data['Nome'] == 'Judite']
+```
+Além disso, é possível selecionar linhas à partir do conteúdo de mais de uma coluna, estabelencendo relação entre elas. Para isso é possível utilizar operadores lógicos como "and" ou "or", entretanto nessa biblioteca eles são representados por `&` significando o mesmo que `and` e `|` significando o mesmo que `or`.
+```py
+data.loc[(data['Nome'] == 'Joao') & (data['Idade'] >= '30')]
 ```
 
 <br>
 
-## Retirando colunas
+## Lendo linhas por trechos de str do conteúdo
+O método str.contains() é capaz de checar se uma determinada coluna apresenta um determinado trecho de `string`, retornando um valor booleano.
+```py
+data['nome'].str.contains('João')
+```
+À partir desse método é possível, juntamente com o atributo `.loc`, obter determinadas linhas que apresentem tal trecho de string. Por meio de operadores lógicos, é possível utilizar, inclusive, mais de um trecho de string.
+```py
+print(data.loc[data.Name.str.contains('Joao|Judite')])
+```
+
+<br>
+
+# Editando o dataframe
+## Parâmetros de organização
+Existem alguns parâmetros úteis para serem utilizados quando se deseja reorganizar o dataframe. Talvez o principal deles seja `ascending`. Ele é responsável por representar os valores de forma ascendente (do menor para o maior) quando seu valor for `True`, ou por ordem decrescente (do maior para o menor) quando seu valor for `False`. Se esse parâmetro não for informado, por padrão ele sempre será `True`.  
+Um outro parâmetro que pode ser útil é o `ignore_index`. Quando se reorganiza a ordem das linhas de um dataframe, o index permanece permanece com os valores originais de quando foi gerado, ou seja o atributo possui o valor `False` por padrão. Para que o index corresponda a disposição da nova ordem de linhas deve-se alterar o parâmetro `ignore_index` para `True`.
+
+<br>
+
+## Reorganizando linhas à partir de colunas
+Uma forma de reorganizar as linhas de um dataframe é utilizar os valores de uma ou mais colunas como critério de organização por meio do método `.sort_values()`.  
+Abaixo vemos um dataframe reorganizado pelos valores da "Idade", à partir dos maiores valores, no caso, dos mais velhos, aos de menores valores, ou seja, aos mais novos.
+
+```py
+data_reorganizada = data.sort_values('Idade', ascending=False)
+```
+É possível utilizar os valores de mais de uma coluna para organizar as linhas, a prioridade para organiza-las segue a ordem em que foram dispostas.  
+No exemplo abaixo, os dados foram organizados conforme a "Idade" e em seguida o "Nome", ou seja, a ordem é dos mais novos aos mais velhos e entre os de mesma idade, a ordem segue àquela do alfabeto. Ainda nesse mesmo exemplo o index antigo é ignorado, e a nova disposição passa a receber um novo index próprio, organizado à partir de 0.
+```py
+data_reorganizada = data.sort_values(['Idade', 'Nome'], ignore_index=True)
+```
+
+<br>
+
+## Reorganizando linhas e colunas
+À partir do atributo `.values`, que retorna uma lista com valores ordenados, é possível optar quais linhas ou colunas serão obtidas e a suas respectivas ordens.  
+Vejamos primeiro como reorganizar as linhas
+```py
+colunas = list(data.columns.values)
+nova_data = data[colunas[0:3] + [colunas[7]]
+```
+
+<br>
+
+## Retirando linhas e colunas
 
 ```py
 data_sem_uma_coluna = data.drop(columns=['Coluna Indesejada'])
@@ -177,14 +212,10 @@ data_sem_uma_coluna = data.drop(columns=['Coluna Indesejada'])
 
 <br>
 
-## Reorganizando colunas
+## Alterando nomes de uma coluna
 
 ```py
-colunas = list(data.columns.values)
-data_alterada = data[
-    colunas[0:3] + [colunas[-2]] + [colunas[9]] + colunas[-4:-6] +
-    colunas[3:9] + colunas[10:14:] + [colunas[-3]] + [colunas[-1]]
-    ]
+data.loc[data.Source == 'Joao maria', 'Name'] = 'Joao Maria'
 ```
 
 <br>
@@ -214,10 +245,3 @@ new_data.reset_index(drop=True, inplace=True)
 
 <br>
 
-## Alterando nomes de uma coluna
-
-```py
-data.loc[data.Source == 'Joao maria', 'Name'] = 'Joao Maria'
-```
-
-<br>
