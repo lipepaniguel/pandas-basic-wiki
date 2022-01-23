@@ -174,11 +174,11 @@ data.loc[(data['Nome'] == 'Joao') & (data['Idade'] >= '30')]
 ## Lendo linhas por trechos de str do conteúdo
 O método str.contains() é capaz de checar se uma determinada coluna apresenta um determinado trecho de `string`, retornando um valor booleano.
 ```py
-data['nome'].str.contains('João')
+data['Nome'].str.contains('João')
 ```
 À partir desse método é possível, juntamente com o atributo `.loc`, obter determinadas linhas que apresentem tal trecho de string. Por meio de operadores lógicos, é possível utilizar, inclusive, mais de um trecho de string.
 ```py
-print(data.loc[data.Name.str.contains('Joao|Judite')])
+print(data.loc[data.Nome.str.contains('Joao|Judite')])
 ```
 
 <br>
