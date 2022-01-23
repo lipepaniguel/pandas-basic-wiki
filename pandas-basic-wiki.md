@@ -18,7 +18,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Lendo colunas específicas](#lendo-colunas-específicas)
     1. [Lendo linhas específicas](#lendo-linhas-específicas)
     1. [Lendo células específicas](#lendo-células-específicas)
-1. [Triagem por conteúdo](#triagem-por-conteúdo)
+1. [Triagem por conteúdo de célula](#triagem-por-conteúdo-de-célula)
     1. [Lendo linhas pelo conteúdo das colunas](#lendo-linhas-pelo-conteúdo-das-colunas)
     1. [Lendo linhas por trechos de str do conteúdo](#lendo-linhas-por-trechos-de-str-do-conteúdo)
 1. [Editando o dataframe](#editando-o-dataframe)
@@ -97,6 +97,14 @@ titulo_colunas = data.columns
 
 <br>
 
+## Visualizando linhas e colunas em formato de lista
+O método `.tolist()` pode se mostrar muito útil conforme for sendo necessário visualizar e manipular os dados do dataframe. Basta inseri-lo após a seleção de uma linha ou coluna e ele retornará uma lista com todos os valores selecionados.
+```
+lista_titulo_colunas = data.columns.tolist()
+```
+
+<br>
+
 # Triagem por index e título de coluna
 
 ## Lendo colunas específicas
@@ -148,7 +156,7 @@ Ambos os comandos apontam para a mesma célula, isto é, para o conteúdo da pri
 
 <br>
 
-# Triagem por conteúdo
+# Triagem por conteúdo de célula
 
 ## Lendo linhas pelo conteúdo das colunas 
 O atributo `.loc` nos permite ainda selecionar linhas à partir do conteúdo de uma determinada coluna, retornando todas as linhas que apresentarem esse mesmo valor. É possível utilizar todos os operadores de comparação.
@@ -250,7 +258,7 @@ data.reset_index(drop=True, inplace=True)
 
 # Escrevendo arquivos
 ## Criando arquivos .csv
-
+Para criar um novo arquivo do tipo csv basta utilizar o método `.to_csv()` incluindo entre parêntes o nome do arquivo. Um parâmetro que pode ser utilizado ao se criar novos arquivos é o `index`. Por padrão ele é `True`, gerando assim um index para o novo dataframe. Se o dataframe em questão já apresentar um index, basta atribuir a ele o valor de `False`, dessa forma o index não sairá duplicado.
 ```py
 data_alterada.to_csv('nova-data.csv', index=False)
 ```
@@ -258,7 +266,7 @@ data_alterada.to_csv('nova-data.csv', index=False)
 <br>
 
 ## Criando arquivos .xlsx
-
+O mesmo é válido para criar arquivos xlsx, bastando utilizar o método `.to_excel`.
 ```py
 data_alterada.to_excel('nova-data.xlsx', index=False)
 ```
