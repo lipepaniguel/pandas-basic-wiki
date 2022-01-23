@@ -14,6 +14,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Exibindo as n primeiras linhas](#exibindo-as-n-primeiras-linhas)
     1. [Exibindo as informações gerais](#exibindo-as-informações-gerais)
     1. [Lendo o título de todas as colunas](#lendo-o-título-de-todas-as-colunas)
+    1. [Lendo linhas e colunas em formato de lista](#lendo-linhas-e-colunas-em-formato-de-lista)
 1. [Triagem por index e título de coluna](#triagem-por-index-e-título-de-coluna)
     1. [Lendo colunas específicas](#lendo-colunas-específicas)
     1. [Lendo linhas específicas](#lendo-linhas-específicas)
@@ -97,7 +98,7 @@ titulo_colunas = data.columns
 
 <br>
 
-## Visualizando linhas e colunas em formato de lista
+## Lendo linhas e colunas em formato de lista
 O método `.tolist()` pode se mostrar muito útil conforme for sendo necessário visualizar e manipular os dados do dataframe. Basta inseri-lo após a seleção de uma linha ou coluna e ele retornará uma lista com todos os valores selecionados.
 ```
 lista_titulo_colunas = data.columns.tolist()
