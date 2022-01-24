@@ -23,11 +23,14 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Lendo linhas pelo conteúdo das colunas](#lendo-linhas-pelo-conteúdo-das-colunas)
     1. [Lendo linhas por trechos de str do conteúdo](#lendo-linhas-por-trechos-de-str-do-conteúdo)
 1. [Editando o dataframe](#editando-o-dataframe)
+    1. [Alterando toda uma linha](#alterando-toda-uma-linha)
+    1. [Alterando valores de uma coluna](#alterando-valores-de-uma-coluna)
+    1. [Alterando toda uma coluna](#Alterando-toda-uma-coluna)
+    1. [Retirando linhas e colunas](#retirando-linhas-e-colunas)
+1. [Reorganizando o dataframe](#reorganizando-o-dataframe)
     1. [Parâmetros de organização](#parâmetros-de-organização)
     1. [Reorganizando linhas à partir de colunas](#reorganizando-linhas-à-partir-de-colunas)
-    1. [Retirando linhas e colunas](#retirando-linhas-e-colunas)
     1. [Reorganizando linhas e colunas](#reorganizando-linhas-colunas)
-    1. [Alterando valores de uma coluna](#alterando-valores-de-uma-coluna)
     1. [Corrigindo a coluna index](#corrigindo-a-coluna-index)
 1. [Escrevendo arquivos](#escrevendo-arquivos)    
     1. [Criando arquivos .csv](#criando-arquivos-csv)
@@ -184,6 +187,21 @@ print(data.loc[data.Nome.str.contains('Joao|Judite')])
 <br>
 
 # Editando o dataframe
+
+## Alterando toda uma linha
+Por meio do atributo `.loc` é possível alterar todos os valores de uma linha ou mais linhas. Basta inserir entre colchetes o index da(s) linha(s) que se deseja alterar e atribuir os novos valores separados por vírgula.
+```py
+data.loc[2] = 'José', 31, 'Marceneiro'
+```
+Para facilitar o processo, é possível utilizar os valores armazenados por uma variável do tipo lista. Veja no exemplo abaixo:
+```py
+linha = ['José', 31, 'Marceneiro']
+
+data.loc[2] = linha
+```
+
+<br>
+
 ## Parâmetros de organização
 Existem alguns parâmetros úteis para serem utilizados quando se deseja reorganizar o dataframe. Talvez o principal deles seja `ascending`. Ele é responsável por representar os valores de forma ascendente (do menor para o maior) quando seu valor for `True`, ou por ordem decrescente (do maior para o menor) quando seu valor for `False`. Se esse parâmetro não for informado, por padrão ele sempre será `True`.  
 Um outro parâmetro que pode ser útil é o `ignore_index`. Quando se reorganiza a ordem das linhas de um dataframe, o index permanece permanece com os valores originais de quando foi gerado, ou seja o atributo possui o valor `False` por padrão. Para que o index corresponda a disposição da nova ordem de linhas deve-se alterar o parâmetro `ignore_index` para `True`.
@@ -232,14 +250,28 @@ nova_data = data[colunas[0:3] + [colunas[7]]
 <br>
 
 ## Alterando valores de uma coluna
-É possível alterar valores de uma coluna no dataframe à partir de um determinado filtro. Dependendo do tipo de filtro é possível alterar apenas um valor ou todos os valores correspondentes ao grupo filtrado.  
-Para se criar o filtro é utilizado o atributo `.loc` com o nome da coluna e o valor correspondente a ser filtrado. Em seguida utiliza-se o nome da coluna a ser alterada, por fim é atribuído o novo valor a ser substituído. Ou seja, será alterado cada um dos elementos presentes na coluna selecionada, de acordo com o filtro estipulado. A estrutura do código pode ser observada abaixo.
+É possível alterar os valores de uma coluna por meio do index das linhas que se deseja serem alteradas. Para isso é utilizado o atributo `.loc`, fornecendo primeiro o index da(s) linha(s) entre colchetes e separados por vírgula e, separando com uma vírgula, o nome da coluna que se deja alterar também entre colchetes.
+```py
+data.loc[[3, 6], ['Idade']] = 27
+```
+Também é possível alterar os valores de uma coluna no dataframe à partir de um determinado filtro. Dependendo do tipo de filtro é possível alterar apenas um valor ou todos os valores correspondentes ao grupo filtrado.  
+Para se criar o filtro é utilizado o mesmo atributo `.loc` com o nome da coluna e o valor correspondente a ser filtrado. Em seguida utiliza-se o nome da coluna a ser alterada, por fim é atribuído o novo valor a ser substituído. Ou seja, será alterado cada um dos elementos presentes na coluna selecionada, de acordo com o filtro estipulado. A estrutura do código pode ser observada abaixo.
 ```py
 data.loc[data['coluna_filtrada'] == 'valor_filtrado', 'coluna_a_ser_alterada'] = 'novo_valor'
 ```
 Se quisermos, por exemplo, alterar a idade de todo os Josés presentes em um dataframe para 31 anos.
 ```py
 data.loc[data['Nome'] == 'José', 'Idade'] = '31'
+```
+
+<br>
+
+## Alterando toda uma coluna
+Para alterar todos os valores de uma determinada coluna basta utilizar uma lista contendo os novos valores e atribui-la a uma determinada coluna. Ressaltando que o número de elementos da lista utilizada deve corresponder ao número de linhas presentes no dataframe.
+```py
+lista = [27, 27, 31, 25, 42, 18, 33]
+
+data['Idade'] = lista
 ```
 
 <br>
