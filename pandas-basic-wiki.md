@@ -42,7 +42,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
 
 ## Importando a biblioteca
 
-Para se utilizar qualquer biblioteca em python é necessário primeiro importa-la. Nessa Wiki a utilizaremos por meio de sua forma abreviada `pd`. 
+Para se utilizar qualquer biblioteca em python é necessário primeiro importa-la. Nessa *wiki* a utilizaremos por meio de sua forma abreviada `pd`. 
 
 ```py
 import pandas as pd
@@ -51,7 +51,7 @@ import pandas as pd
 <br>
 
 ## Lendo arquivos .csv
-Para trabalhar com um arquivo tipo CSV (valores separados por vírgulas) basta utilizar o método `read_csv()` e inserir entre parênteses o caminho do arquivo. No exemplo abaixo armazenamos o conteúdo na variável `data`.
+Para trabalhar com um arquivo do tipo csv (valores separados por vírgulas) basta utilizar o método `read_csv()` e inserir entre parênteses o caminho do arquivo. No exemplo abaixo armazenamos o conteúdo na variável `data`.
 ```py
 data = pd.read_csv('data.csv')
 ```
@@ -202,53 +202,6 @@ data.loc[2] = linha
 
 <br>
 
-## Parâmetros de organização
-Existem alguns parâmetros úteis para serem utilizados quando se deseja reorganizar o dataframe. Talvez o principal deles seja `ascending`. Ele é responsável por representar os valores de forma ascendente (do menor para o maior) quando seu valor for `True`, ou por ordem decrescente (do maior para o menor) quando seu valor for `False`. Se esse parâmetro não for informado, por padrão ele sempre será `True`.  
-Um outro parâmetro que pode ser útil é o `ignore_index`. Quando se reorganiza a ordem das linhas de um dataframe, o index permanece permanece com os valores originais de quando foi gerado, ou seja o atributo possui o valor `False` por padrão. Para que o index corresponda a disposição da nova ordem de linhas deve-se alterar o parâmetro `ignore_index` para `True`.
-
-<br>
-
-## Reorganizando linhas à partir de colunas
-Uma forma de reorganizar as linhas de um dataframe é utilizar os valores de uma ou mais colunas como critério de organização por meio do método `.sort_values()`.  
-Abaixo vemos um dataframe reorganizado pelos valores da "Idade", à partir dos maiores valores, no caso, dos mais velhos, aos de menores valores, ou seja, aos mais novos.
-
-```py
-data_reorganizada = data.sort_values('Idade', ascending=False)
-```
-É possível utilizar os valores de mais de uma coluna para organizar as linhas, a prioridade para organiza-las segue a ordem em que foram dispostas.  
-No exemplo abaixo, os dados foram organizados conforme a "Idade" e em seguida o "Nome", ou seja, a ordem é dos mais novos aos mais velhos e entre os de mesma idade, a ordem segue àquela do alfabeto. Ainda nesse mesmo exemplo o index antigo é ignorado, e a nova disposição passa a receber um novo index próprio, organizado à partir de 0.
-```py
-data_reorganizada = data.sort_values(['Idade', 'Nome'], ignore_index=True)
-```
-
-<br>
-
-## Retirando linhas e colunas
-Com o método `.drop()` é possível remover do dataframe qualquer linha ou coluna, basta inserir o parâmetro `index` dentro do parênteses atribuindo o número do index da linha que se deseja retirar ou inserindo o parâmetro `columns`, também atribuindo o nome da coluna entre aspas que se deseja retirar.
-```py
-data_sem_a_linha = data.drop(index=3)
-
-data_sem_a_coluna = data.drop(columns='Coluna Indesejada')
-```
-
-<br>
-
-## Reorganizando linhas e colunas
-À partir do atributo `.values`, que retorna uma lista com valores ordenados, é possível reorganizar o dataframe, optando por quais linhas ou colunas serão obtidas, podendo alterar dessa forma também as suas respectivas ordens.  
-O primeiro passo é armazenar o valor obtido pelo atributo `.values` em uma variável do tipo lista. Assim podemos tratar cada uma das linhas ou colunas como um index.  
-No caso das linhas, deve utilizar o atributo `.iloc` para podermos indicar as linhas que dejemos obter.
-```py
-linhas = list(data.index.values)
-nova_data = data.iloc[linhas[0:3] + [linhas[5]]]
-```
-Já para colunas o processo é mais simples, basta apenas indicar o index das colunas por meio da lista criada.
-```py
-colunas = list(data.columns.values)
-nova_data = data[colunas[0:3] + [colunas[7]]
-```
-
-<br>
-
 ## Alterando valores de uma coluna
 É possível alterar os valores de uma coluna por meio do index das linhas que se deseja serem alteradas. Para isso é utilizado o atributo `.loc`, fornecendo primeiro o index da(s) linha(s) entre colchetes e separados por vírgula e, separando com uma vírgula, o nome da coluna que se deja alterar também entre colchetes.
 ```py
@@ -275,6 +228,57 @@ data['Idade'] = lista
 ```
 
 <br>
+
+## Retirando linhas e colunas
+Com o método `.drop()` é possível remover do dataframe qualquer linha ou coluna, basta inserir o parâmetro `index` dentro do parênteses atribuindo o número do index da linha que se deseja retirar ou inserindo o parâmetro `columns`, também atribuindo o nome da coluna entre aspas que se deseja retirar.
+```py
+data_sem_a_linha = data.drop(index=3)
+
+data_sem_a_coluna = data.drop(columns='Coluna Indesejada')
+```
+
+<br>
+
+# Reorganizando o dataframe
+
+## Parâmetros de organização
+Existem alguns parâmetros úteis para serem utilizados quando se deseja reorganizar o dataframe. Talvez o principal deles seja `ascending`. Ele é responsável por representar os valores de forma ascendente (do menor para o maior) quando seu valor for `True`, ou por ordem decrescente (do maior para o menor) quando seu valor for `False`. Se esse parâmetro não for informado, por padrão ele sempre será `True`.  
+Um outro parâmetro que pode ser útil é o `ignore_index`. Quando se reorganiza a ordem das linhas de um dataframe, o index permanece permanece com os valores originais de quando foi gerado, ou seja o atributo possui o valor `False` por padrão. Para que o index corresponda a disposição da nova ordem de linhas deve-se alterar o parâmetro `ignore_index` para `True`.
+
+<br>
+
+## Reorganizando linhas à partir de colunas
+Uma forma de reorganizar as linhas de um dataframe é utilizar os valores de uma ou mais colunas como critério de organização por meio do método `.sort_values()`.  
+Abaixo vemos um dataframe reorganizado pelos valores da "Idade", à partir dos maiores valores, no caso, dos mais velhos, aos de menores valores, ou seja, aos mais novos.
+
+```py
+data_reorganizada = data.sort_values('Idade', ascending=False)
+```
+É possível utilizar os valores de mais de uma coluna para organizar as linhas, a prioridade para organiza-las segue a ordem em que foram dispostas.  
+No exemplo abaixo, os dados foram organizados conforme a "Idade" e em seguida o "Nome", ou seja, a ordem é dos mais novos aos mais velhos e entre os de mesma idade, a ordem segue àquela do alfabeto. Ainda nesse mesmo exemplo o index antigo é ignorado, e a nova disposição passa a receber um novo index próprio, organizado à partir de 0.
+```py
+data_reorganizada = data.sort_values(['Idade', 'Nome'], ignore_index=True)
+```
+
+<br>
+
+
+## Reorganizando linhas e colunas
+À partir do atributo `.values`, que retorna uma lista com valores ordenados, é possível reorganizar o dataframe, optando por quais linhas ou colunas serão obtidas, podendo alterar dessa forma também as suas respectivas ordens.  
+O primeiro passo é armazenar o valor obtido pelo atributo `.values` em uma variável do tipo lista. Assim podemos tratar cada uma das linhas ou colunas como um index.  
+No caso das linhas, deve utilizar o atributo `.iloc` para podermos indicar as linhas que dejemos obter.
+```py
+linhas = list(data.index.values)
+nova_data = data.iloc[linhas[0:3] + [linhas[5]]]
+```
+Já para colunas o processo é mais simples, basta apenas indicar o index das colunas por meio da lista criada.
+```py
+colunas = list(data.columns.values)
+nova_data = data[colunas[0:3] + [colunas[7]]
+```
+
+<br>
+
 
 ## Corrigindo a coluna index
 Após editar o conjunto de dados pode-se querer atribuir um novo index ao dataframe, para isso é possível utilizar o método `.reset_index`.  Ele pode ser utilizado sem parâmetro nenhum, como no exemplo abaixo,
