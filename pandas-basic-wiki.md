@@ -23,6 +23,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Lendo linhas pelo conteúdo das colunas](#lendo-linhas-pelo-conteúdo-das-colunas)
     1. [Lendo linhas por trechos de str do conteúdo](#lendo-linhas-por-trechos-de-str-do-conteúdo)
 1. [Editando o dataframe](#editando-o-dataframe)
+    1. [Alterando o nome de uma coluna](#alterando-o-nome-de-uma-coluna)
     1. [Alterando toda uma linha](#alterando-toda-uma-linha)
     1. [Alterando valores de uma coluna](#alterando-valores-de-uma-coluna)
     1. [Alterando toda uma coluna](#Alterando-toda-uma-coluna)
@@ -175,7 +176,7 @@ data.loc[(data['Nome'] == 'Joao') & (data['Idade'] >= '30')]
 <br>
 
 ## Lendo linhas por trechos de str do conteúdo
-O método str.contains() é capaz de checar se uma determinada coluna apresenta um determinado trecho de `string`, retornando um valor booleano.
+O método `str.contains()` é capaz de checar se uma determinada coluna apresenta um determinado trecho de `string`, retornando um valor booleano.
 ```py
 data['Nome'].str.contains('João')
 ```
@@ -187,6 +188,29 @@ print(data.loc[data.Nome.str.contains('Joao|Judite')])
 <br>
 
 # Editando o dataframe
+
+## Alterando o valor de um index
+Para alterar o valor de algum index de linha, basta utilizar o método `.rename()`, inserindo entre chaves primeiro o index que se deseja alterar seguido de dois pontos e o novo valor que se deseja atribuir, em seguida deve-se atribuir o valor `'index'`, entre aspas ao parâmetro `axis` para indicar que se trata de uma linha e `inplace` como um parâmetro opcional.
+```py
+data.rename({1: 2222}, axis='index', inplace=True)
+```
+Uma outra maneira de realizar a mesma tarefa é omitir o parâmetro `axis` atribuindo diretamente a alteração ao parâmetro `index`.
+```py
+data.rename(index={1: 2222}, inplace=True)
+```
+
+<br>
+
+## Alterando o nome de uma coluna
+O mesmo vale para se alterar o nome de uma determinada coluna.
+
+```py
+data.rename({'nome': 'apelido'}, axis='columns', inplace=True)
+
+data.rename(columns={'nome': 'apelido'}, inplace=True)
+```
+
+<br>
 
 ## Alterando toda uma linha
 Por meio do atributo `.loc` é possível alterar todos os valores de uma linha ou mais linhas. Basta inserir entre colchetes o index da(s) linha(s) que se deseja alterar e atribuir os novos valores separados por vírgula.
@@ -225,6 +249,17 @@ Para alterar todos os valores de uma determinada coluna basta utilizar uma lista
 lista = [27, 27, 31, 25, 42, 18, 33]
 
 data['Idade'] = lista
+```
+
+<br>
+
+## Inserindo uma nova coluna ao dataframe
+É possível inserir uma nova coluna ao dataframe à partir do método `.insert()`, basta indicar onde se deseja inserir a nova coluna por meio do index de coluna (assim como o index das linhas, a primeira coluna é representada por zero `0`), seguido do título a ser atribuído à nova coluna entre aspas seguido de uma vírgula e uma lista contendo os valores da nova coluna.
+
+```py
+valores_profissao = ['Jardineiro', 'Pescador', 'Marceneiro']
+
+data.insert(2, 'Profissão', valores_profissao)
 ```
 
 <br>
@@ -281,7 +316,7 @@ nova_data = data[colunas[0:3] + [colunas[7]]
 
 
 ## Corrigindo a coluna index
-Após editar o conjunto de dados pode-se querer atribuir um novo index ao dataframe, para isso é possível utilizar o método `.reset_index`.  Ele pode ser utilizado sem parâmetro nenhum, como no exemplo abaixo,
+Após editar o conjunto de dados pode-se querer atribuir um novo index ao dataframe, para isso é possível utilizar o método `.reset_index()`.  Ele pode ser utilizado sem parâmetro nenhum, como no exemplo abaixo,
 à partir da criação de um novo dataframe que apresentará o novo index bem como uma tabela "extra" contendo o index antigo.
 ```py
 new_data = data.reset_index()
