@@ -10,6 +10,8 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Lendo arquivos .csv](#lendo-arquivo-csv)
     1. [DataFrame](#dataframe)
 1. [Criando um DataFrame](#criando-um-dataframe)
+    1. [Criando DataFrame a partir de uma única lista](#criando-dataframe-a-partir-de-uma-única-lista)
+    1. [Criando DataFrame a partir de um Dicionário](#criando-dataframe-a-partir-de-um-dicionário)
 1. [Vizualizando os dados](#vizualizando-os-dados)
     1. [Formato de exibição do dataframe](#Formato-de-exibição-do-dataframe)
     1. [Exibindo as n primeiras linhas](#exibindo-as-n-primeiras-linhas)
