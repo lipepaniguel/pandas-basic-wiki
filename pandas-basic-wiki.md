@@ -88,7 +88,7 @@ O comando `print(novo_dataframe)` apresentará o seguinte output:
 1  B
 2  C
 ```
-Observe que os elementos presentes na lista foram organizados em três linhas, com `index` de 0 a 2, e em uma única coluna de `index.  
+Observe que os elementos presentes na lista foram organizados em três linhas, com *index* de 0 a 2, e em uma única coluna de *index* 0.  
 Para atribuir um título à coluna, deve-se inserir juntamente com a lista, um atributo `columns`, responsável por definir o nome da coluna. Sendo necessário atribuir a ele o nome desejado dentro uma lista.  
 Observe o seguinte exemplo:
 ```py
