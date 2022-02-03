@@ -9,6 +9,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
     1. [Importando a biblioteca](#importando-a-biblioteca)
     1. [Lendo arquivos .csv](#lendo-arquivo-csv)
     1. [DataFrame](#dataframe)
+1. [Criando um DataFrame](#criando-um-dataframe)
 1. [Vizualizando os dados](#vizualizando-os-dados)
     1. [Formato de exibição do dataframe](#Formato-de-exibição-do-dataframe)
     1. [Exibindo as n primeiras linhas](#exibindo-as-n-primeiras-linhas)
@@ -43,7 +44,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
 
 ## Importando a biblioteca
 
-Para se utilizar qualquer biblioteca em python é necessário primeiro importa-la. Nessa *wiki* a utilizaremos por meio de sua forma abreviada `pd`. 
+Para se utilizar qualquer biblioteca em python é necessário primeiro importa-la. Nessa *wiki* utilizaremos ela por meio de sua forma abreviada `pd`. 
 
 ```py
 import pandas as pd
@@ -60,10 +61,70 @@ data = pd.read_csv('data.csv')
 <br>
 
 ## DataFrame
-O conteúdo é armazenado em uma variável do tipo objeto chamada *DataFrame*.
+O conteúdo é armazenado em uma variável do tipo objeto chamada *DataFrame*. Que basicamente é uma estrutura de dados bidimensional, alinhados em forma tabular em linhas e colunas.  
 Se utilizarmos o comando `print(type(data))` receberemos o seguinte output:
-```
+```py
 <class 'pandas.core.frame.DataFrame'>
+```
+
+<br>
+
+# Criando um DataFrame
+
+## Criando DataFrame a partir de uma única lista
+Para se criar um dataframe deve-se utilizar o seguinte método: `DataFrame()`.  
+A forma mais básica de se criar um novo dataframe é a partir de uma única lista. Que deve ser inserida dentro do método apresentado anteriormente. Veja o exemplo abaixo:
+```py
+lista = ['A', 'B', 'C']
+
+novo_dataframe = pd.DataFrame(lista)
+```
+O comando `print(novo_dataframe)` apresentará o seguinte output:
+```
+   0
+0  A
+1  B
+2  C
+```
+Observe que os elementos presentes na lista foram organizados em três linhas, com `index` de 0 a 2, e em uma única coluna de `index.  
+Para atribuir um título à coluna, deve-se inserir juntamente com a lista, um atributo `columns`, responsável por definir o nome da coluna. Sendo necessário atribuir a ele o nome desejado dentro uma lista.  
+Observe o seguinte exemplo:
+```py
+lista = ['A', 'B', 'C']
+
+novo_dataframe = pd.DataFrame(lista, columns=['Letras'])
+```
+O comando `print(novo_dataframe)` passará a exibir o nome da coluna no lugar que antes apresentava seu index:
+```
+  Letras
+0      A
+1      B
+2      C
+```
+
+<br>
+
+## Criando DataFrame a partir de um Dicionário
+Para criar um dataframe que possua mais de uma coluna, o método que talvez seja o mais prático é utilizar um dicionário. Nesse método cada chave do dicionário corresponderá ao nome de uma coluna e seu respectivo valor corresponderá a lista contendo os valores de cada linha de sua coluna. Após a criação desse dicionário, basta apenas inseri-lo no método `DataFrame()`.  
+Observe abaixo a criação de um DataFrame a partir de três listas:
+```py
+lista_letra = ['A', 'B', 'C']
+lista_nome = ['João', 'José', 'Maria']
+lista_idade = [25, 29, 38]
+
+dic_dataframe = {
+    'Letras': lista_letra,
+    'Nome': lista_nome,
+    'Idade': lista_idade
+}
+novo_dataframe = pd.DataFrame(dic_dataframe)
+```
+Se printarmos o dataframe acima receberemos o seguinte output:
+```
+  Letras   Nome  Idade
+0      A   João     25
+1      B   José     29
+2      C  Maria     38
 ```
 
 <br>
@@ -71,8 +132,7 @@ Se utilizarmos o comando `print(type(data))` receberemos o seguinte output:
 # Vizualizando os dados
 
 ## Formato de exibição do dataframe
-
-O comando `print(data)` exibirá as cinco primeiras e cinco últimas linhas do nosso conjunto de dados. As colunas podem ser apresentadas em sua totalidade ou não, variando conforme o espaço disponível para apresenta-las. Os dados das linhas e colunas ocultadas são representados por reticências `...`.  
+Se utilizarmos o comando `print()` para visualizar o DataFrame, ele exibirá, no máximo, as cinco primeiras e cinco últimas linhas do nosso conjunto de dados. As colunas podem ser apresentadas em sua totalidade ou não, variando conforme o espaço disponível para apresenta-las. Os dados das linhas e colunas, quando ocultadas, serão representados por reticências `...`.  
 No topo de cada coluna é possível ler seus respectivos títulos, no canto esquerdo é exibido uma coluna "extra" correspondente ao index de cada linha - em que 0 equivale a primeira linha e assim por diante - e ao fim, entre colchetes, é exibido o número total de linhas e colunas do dataframe.
 
 <br>
