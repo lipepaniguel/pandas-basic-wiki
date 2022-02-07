@@ -12,6 +12,7 @@ Trata-se de uma Wiki que apresenta os recursos básicos da biblioteca *Pandas*.
 1. [Criando um DataFrame](#criando-um-dataframe)
     1. [Criando DataFrame a partir de uma única lista](#criando-dataframe-a-partir-de-uma-única-lista)
     1. [Criando DataFrame a partir de um Dicionário](#criando-dataframe-a-partir-de-um-dicionário)
+    1. [Dados ausentes](#dados-ausentes)
 1. [Vizualizando os dados](#vizualizando-os-dados)
     1. [Formato de exibição do dataframe](#Formato-de-exibição-do-dataframe)
     1. [Exibindo as n primeiras linhas](#exibindo-as-n-primeiras-linhas)
@@ -131,6 +132,34 @@ Se printarmos o dataframe acima receberemos o seguinte output:
 
 <br>
 
+## Dados ausentes
+Ao se organizar um determinado conjunto de dados, não são raras as ocasiões de se deparar com um ou mais dados ausentes. Mesmo assim, para casos como esses, ainda é possível de se construir um DataFrame eficiente. Basta indicar o dado que está faltando com o valor `None`.
+A biblioteca *Pandas* é capaz de interpretar esses valores ausentes e, dependendo do padrão de valores apresentado pela coluna, realizar a substituição por valores correspontes que representam esses valores.  
+Esse "valores correspodentes" podem ser observados em um DataFrame como `NaN`, para representar números inteiros e com pontos flutuantes, `NaT` para representar *DateTime* e `None` para representar *strings*. Sendo NaN um valor da biblioteca *NumPy*, NaT um valor do *Pandas* e `None` o valor já conhecido do próprio Python. Todos eles indicam a mesma coisa, ausência de valor.  
+Observa a seguir uma forma de se criar um dataframe com valores ausentes:
+```py
+lista_nome = [None, 'Ancelmo', 'Maria']
+lista_idade = [25, None, 38]
+lista_altura = [1.67, 1.73, None]
+
+dic_dataframe = {
+    'Nome': lista_nome,
+    'Idade': lista_idade,
+    'Altura': lista_altura,
+}
+novo_dataframe = pd.DataFrame(dic_dataframe)
+```
+O respectivo print desse dataframe apresenta o seguinte output:
+```
+      Nome  Idade  Altura
+0     None   25.0    1.67
+1  Ancelmo    NaN    1.73
+2    Maria   38.0     NaN
+```
+Uma curiosidade é que ao inserir um valor ausente à uma coluna de números inteiros, a coluna passa a ser interpretada, ela toda, como uma coluna de números com pontos flutuantes.
+
+<br>
+
 # Vizualizando os dados
 
 ## Formato de exibição do dataframe
@@ -226,13 +255,18 @@ Ambos os comandos apontam para a mesma célula, isto é, para o conteúdo da pri
 # Triagem por conteúdo de célula
 
 ## Lendo linhas pelo conteúdo das colunas 
-O atributo `.loc` nos permite ainda selecionar linhas à partir do conteúdo de uma determinada coluna, retornando todas as linhas que apresentarem esse mesmo valor. É possível utilizar todos os operadores de comparação.
+O atributo `.loc` nos permite ainda selecionar linhas à partir do conteúdo de uma determinada coluna, retornando todas as linhas que apresentarem esse mesmo valor. É possível utilizar todos os *operadores de comparação*.
 ```py
-linhas_mesma_info = data.loc[data['Nome'] == 'Judite']
+linhas_mesma_info = data.loc[data['Idade'] >= 27']
 ```
 Além disso, é possível selecionar linhas à partir do conteúdo de mais de uma coluna, estabelencendo relação entre elas. Para isso é possível utilizar operadores lógicos como "and" ou "or", entretanto nessa biblioteca eles são representados por `&` significando o mesmo que `and` e `|` significando o mesmo que `or`.
 ```py
 data.loc[(data['Nome'] == 'Joao') & (data['Idade'] >= '30')]
+```
+Por fim, é possível ainda selecionar linhas pela ausência de valores de uma determinada coluna, ou seja, os valores ausentes representados em *Pandas* por `NaN`, `NaT` e `None`.  
+Para isso, é possível utilizar o método `isna()`. Observe o exemplo abaixo.
+```py
+data_valores_ausentes = data.loc[data['Idade'].isna()]
 ```
 
 <br>
