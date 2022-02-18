@@ -263,11 +263,15 @@ Além disso, é possível selecionar linhas à partir do conteúdo de mais de um
 ```py
 data.loc[(data['Nome'] == 'Joao') & (data['Idade'] >= '30')]
 ```
-Por fim, é possível ainda selecionar linhas pela ausência de valores de uma determinada coluna, ou seja, os valores ausentes representados em *Pandas* por `NaN`, `NaT` e `None`.  
-Para isso, é possível utilizar o método `isna()`. Observe o exemplo abaixo.
+Por fim, é possível ainda selecionar linhas utilizando como parâmetro a ausência de valores de uma determinada coluna, ou seja, os valores ausentes representados em *Pandas* por `NaN`, `NaT` e `None`.  
+Para isso, é possível utilizar o método `isna()`, que retorna todas as linhas que apresentam valores ausentes para uma determinada columa. Observe o exemplo abaixo.
 ```py
-data_valores_ausentes = data.loc[data['Idade'].isna()]
+linhas_valores_ausentes = data.loc[data['Idade'].isna()]
 ```
+É possível ainda realizar o oposto, ou seja, selecionar todas as linhas que não possuam um valor ausente em uma determinada coluna. Para isso utiliza-se o método `notna`.
+```py
+linhas_valores_presentes = data.loc[data['Idade'].notna()]
+````
 
 <br>
 
