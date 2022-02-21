@@ -271,7 +271,7 @@ linhas_valores_ausentes = data.loc[data['Idade'].isna()]
 É possível ainda realizar o oposto, ou seja, selecionar todas as linhas que não possuam um valor ausente em uma determinada coluna. Para isso utiliza-se o método `notna`.
 ```py
 linhas_valores_presentes = data.loc[data['Idade'].notna()]
-````
+```
 
 <br>
 
@@ -409,7 +409,7 @@ nova_data = data.iloc[linhas[0:3] + [linhas[5]]]
 Já para colunas o processo é mais simples, basta apenas indicar o index das colunas por meio da lista criada.
 ```py
 colunas = list(data.columns.values)
-nova_data = data[colunas[0:3] + [colunas[7]]
+nova_data = data[colunas[0:3] + [colunas[7]]]
 ```
 
 <br>
