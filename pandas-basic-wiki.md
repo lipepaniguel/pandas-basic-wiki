@@ -268,7 +268,7 @@ Para isso, é possível utilizar o método `isna()`, que retorna todas as linhas
 ```py
 linhas_valores_ausentes = data.loc[data['Idade'].isna()]
 ```
-É possível ainda realizar o oposto, ou seja, selecionar todas as linhas que não possuam um valor ausente em uma determinada coluna. Para isso utiliza-se o método `notna`.
+É possível ainda realizar o oposto, ou seja, selecionar todas as linhas que não possuam um valor ausente em uma determinada coluna. Para isso utiliza-se o método `notna()`.
 ```py
 linhas_valores_presentes = data.loc[data['Idade'].notna()]
 ```
